@@ -1,0 +1,13 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        - echo "No build steps required"  # No build necessary since frontend is a single file
+  artifacts:
+    baseDirectory: .
+    files:
+      - frontend
+  cache:
+    paths:
+      - node_modules/**/*
