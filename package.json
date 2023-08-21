@@ -1,0 +1,31 @@
+{
+  "name": "otto",
+  "version": "1.0.0",
+  "description": "Website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ktkato/otto.git"
+  },
+  "keywords": [
+    "otto",
+    "automation",
+    "consultant",
+    "business",
+    "process",
+    "efficiency"
+  ],
+  "author": "Otto Technologies, LLC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ktkato/otto/issues"
+  },
+  "homepage": "https://github.com/ktkato/otto#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
