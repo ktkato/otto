@@ -1,3 +1,5 @@
+// server.js
+
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -12,13 +14,24 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Sample user credentials for demonstration purposes
+const validUser = {
+    username: 'test',
+    password: 'test'
+};
+
+// Middleware to check if a user is authenticated
+const isAuthenticated = (req, res, next) => {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+};
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    if (username === 'test' && password === 'test') {
+    if (username === validUser.username && password === validUser.password) {
         req.session.user = username;
         res.redirect('/dashboard');
     } else {
@@ -26,16 +39,20 @@ app.post('/login', (req, res) => {
     }
 });
 
-app.get('/dashboard', (req, res) => {
-    if (req.session.user) {
-        res.send(`Welcome to the dashboard, ${req.session.user}!`);
-    } else {
-        res.redirect('/');
-    }
+app.get('/dashboard', isAuthenticated, (req, res) => {
+    res.send(`Welcome to the dashboard, ${req.session.user}!`);
 });
 
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+    if (req.session.user) {
+        res.redirect('/dashboard');
+    } else {
+        res.sendFile(__dirname + '/public/index.html');
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
